@@ -50,8 +50,8 @@ app.add_middleware(
 
 # Joblib strategy for optimal performance
 try:
-    model = joblib.load("./joblib/sentiment_model.joblib")
-    vectorizer = joblib.load("./joblib/tfidf_vectorizer.joblib")
+    model = joblib.load("./artifacts/sentiment_model.joblib")
+    vectorizer = joblib.load("./artifacts/tfidf_vectorizer.joblib")
     lime_explainer = LimeTextExplainer(class_names=["negative", "positive"])
     print("✅ Modèles chargés avec succès")
 except Exception as e:
@@ -84,7 +84,7 @@ def health():
     """ Vérifie l'état du modèle """
     if model is None:
         raise HTTPException(status_code=503, detail="Modèle non chargé.")
-    return {"status": "healthy", "model": "./joblib/sentiment_model.joblib"}
+    return {"status": "healthy", "model": "./artifacts/sentiment_model.joblib"}
 
 
 @app.post("/predict", response_model=PredictionResponse)
