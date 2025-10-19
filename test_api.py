@@ -6,6 +6,26 @@ from main import app
 client = TestClient(app)
 
 
+def test_health_endpoint():
+    """Test du endpoint /health pour vérifier la santé du service et le chargement du modèle"""
+    
+    response = client.get("/health")
+    
+    # Statut HTTP
+    assert response.status_code == 200, "Le endpoint /health ne répond pas correctement (≠200)."
+    
+    data = response.json()
+    
+    # Structure attendue
+    assert "status" in data, "Champ 'status' manquant dans la réponse /health."
+    assert "model" in data, "Champ 'model' manquant dans la réponse /health."
+    
+    # Valeurs attendues
+    assert data["status"] == "healthy", f"Le statut renvoyé n'est pas 'healthy' : {data['status']}"
+    assert data["model"].endswith(".joblib"), "Le modèle chargé n'est pas celui attendu (.joblib)."
+    
+    print("✅ Test /health réussi : le modèle est chargé et l'API est opérationnelle.")
+
 def test_predict_endpoint_valid():
     """Test l'endpoint /predict avec un tweet valide"""
     
