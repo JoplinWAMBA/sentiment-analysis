@@ -96,7 +96,7 @@ def predict(request: TweetRequest):
     text = preprocess_text(request.text)
     X = vectorizer.transform([text])
     proba = model.predict_proba(X)[0]
-    sentiment = "positive" if proba[1] > 0.5 else "negative"
+    sentiment = "Positif" if proba[1] > 0.5 else "Négatif"
     confidence = abs(proba[1] - 0.5) * 2  # niveau de confiance
 
     return PredictionResponse(
@@ -128,7 +128,7 @@ def explain(request: TweetRequest):
     # Prédiction pour récupérer le sentiment dominant
     X = vectorizer.transform([text])
     proba = model.predict_proba(X)[0]
-    sentiment = "positive" if proba[1] > 0.5 else "negative"
+    sentiment = "Positif" if proba[1] > 0.5 else "Négatif"
 
     return ExplanationResponse(
         sentiment=sentiment,
