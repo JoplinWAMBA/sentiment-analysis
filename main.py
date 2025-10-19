@@ -22,10 +22,15 @@ class PredictionResponse(BaseModel):
     probability_positive: float
     probability_negative: float
 
+class WordWeight(BaseModel):
+    word: str
+    weight: float
+
 class ExplanationResponse(BaseModel):
     sentiment: str
-    explanation: List[Dict[str, float]]
+    explanation: List[WordWeight]
     html_explanation: str
+
 
 
 # ---------- App init ----------
