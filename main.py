@@ -14,7 +14,7 @@ import time
 
 # ---------- Request / Response models ----------
 class TweetRequest(BaseModel):
-    text: str = Field(..., max_length=280)
+    text: str = Field(..., min_length=1, max_length=280)
 
 class PredictionResponse(BaseModel):
     sentiment: str
