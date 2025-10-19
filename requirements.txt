@@ -1,2 +1,8 @@
 fastapi
 uvicorn
+joblib
+numpy
+scikit-learn
+lime
+pytest
+httpx
