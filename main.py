@@ -119,6 +119,11 @@ def explain(request: TweetRequest):
         raise HTTPException(status_code=503, detail="Modèle non chargé.")
 
     text = preprocess_text(request.text)
+    if len(text.split()) < 2:
+        raise HTTPException(
+            status_code=422,
+            detail="Texte trop court pour générer une explication LIME."
+        )
 
     # Génération d'une explication LIME
     exp = lime_explainer.explain_instance(
